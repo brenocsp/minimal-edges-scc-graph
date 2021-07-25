@@ -38,7 +38,7 @@ void SCC::DFS(vector<vector<int>> graph, int vertex, bool* visitedVertexes) {
 
 void SCC::identifyVertexesSCC() {
     vector<int> fillOrderStack;
-    bool visitedVertexes[_numOfVertexes] = {0};
+    bool visitedVertexes[_numOfVertexes] = {false};
     for (int i = 0; i < _numOfVertexes; i++) {
         if (visitedVertexes[i] == false) {
             fillOrderDFS(i, visitedVertexes, fillOrderStack);
@@ -58,19 +58,14 @@ void SCC::identifyVertexesSCC() {
     }
 }
 
-bool SCC::graphContains(vector<vector<int>> graph, int origin, int destination) {
-    for (int i : graph[origin]) {
-        if (i == destination) return true;
-    }
-    return false;
-}
-
 void SCC::generateSCCgraph() {
     _SCCgraph.resize(_numSCC);
+    bool  contains[_numSCC][_numSCC] = {false}; //matriz usada apenas para checar se uma aresta existe em O(1)
     for (int i = 0; i < _numOfVertexes; i++) {
         for (int j : _graph[i]) {
-            if (_vertexesSCC[i] != _vertexesSCC[j] && !graphContains(_SCCgraph, _vertexesSCC[i], _vertexesSCC[j])) {
+            if (_vertexesSCC[i] != _vertexesSCC[j] && !contains[_vertexesSCC[i]][_vertexesSCC[j]]) {
                 _SCCgraph[_vertexesSCC[i]].push_back(_vertexesSCC[j]);
+                contains[_vertexesSCC[i]][_vertexesSCC[j]] = true;
             }
         }
     }
