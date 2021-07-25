@@ -20,7 +20,6 @@ class SCC {
         vector<vector<int>> reverseGraph(vector<vector<int>> graph, int numOfVertexes);
         void fillOrderDFS(int vertex, bool* visited, vector<int>& fillOrderStack);
         void DFS(vector<vector<int>> graph, int vertex, bool* visitedVertexes);
-        bool graphContains(vector<vector<int>> graph, int origin, int destination);
         int getNumSinks(vector<vector<int>> graph, int numOfVertexes);
         int getNumSources(vector<vector<int>> graph, int numOfVertexes);
 
